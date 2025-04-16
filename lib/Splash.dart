@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_firebase/Login.dart';
-import 'package:test_firebase/navigation.dart';
+import 'package:test_firebase/users_screens/navigation.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -27,7 +27,8 @@ class _SplashState extends State<Splash> {
     return Scaffold(
       body: Center(
         child: SizedBox(
-            height: 150, child: Center(child: Image.asset("assets/Logo.jpeg"))),
+            height: 150,
+             child: Center(child: Image.asset('assets/image.png'))),
       ),
     );
   }

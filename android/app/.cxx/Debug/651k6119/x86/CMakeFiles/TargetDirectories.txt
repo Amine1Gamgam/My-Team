@@ -1,0 +1,2 @@
+C:/Users/dell/Desktop/test_firebase/android/app/.cxx/Debug/651k6119/x86/CMakeFiles/edit_cache.dir
+C:/Users/dell/Desktop/test_firebase/android/app/.cxx/Debug/651k6119/x86/CMakeFiles/rebuild_cache.dir

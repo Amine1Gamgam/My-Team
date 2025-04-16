@@ -1,9 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:test_firebase/Login.dart';
-import 'package:test_firebase/Register.dart';
 import 'package:test_firebase/Splash.dart';
-import 'package:test_firebase/navigation.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

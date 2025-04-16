@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:test_firebase/Login.dart';
 import 'package:test_firebase/firebase.dart/Auth.dart';
-import 'package:test_firebase/navigation.dart';
-import 'package:test_firebase/toast.dart';
+import 'package:test_firebase/users_screens/navigation.dart';
+import 'package:test_firebase/widgets/toast.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -17,82 +17,99 @@ class _RegisterState extends State<Register> {
   final FirebaseAuthService _auth = FirebaseAuthService();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  final TextEditingController username1 = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blueGrey[50], // Fond clair en blueGrey
       body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20.0), // Espacement autour du contenu
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(height: 100),
+            const SizedBox(height: 80),
             Container(
               height: 150,
-              child: Center(child: Image.asset("assets/Logo.jpeg")),
+              child: Center(child: Image.asset('assets/image.png')),
             ),
-            const SizedBox(height: 50),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: TextFormField(
-                controller: username1,
-                decoration: InputDecoration(
-                  labelText: "Username",
-                  prefixIcon: const Icon(Icons.person),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 25,),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: TextFormField(
-                controller: emailController,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  labelText: "Email",
-                  prefixIcon: const Icon(Icons.email),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 25),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: TextFormField(
-                controller: passwordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: "Password",
-                  prefixIcon: const Icon(Icons.lock),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 25),
-            ElevatedButton(
-              onPressed: _signUp, // Correction ici
-              child: const Text("Register"),
-            ),
-
-            TextButton(onPressed:() {
+            const SizedBox(height: 40),
+            _buildTextField(usernameController, "Username", Icons.person),
+            const SizedBox(height: 20),
+            _buildTextField(emailController, "Email", Icons.email, keyboardType: TextInputType.emailAddress),
+            const SizedBox(height: 20),
+            _buildTextField(passwordController, "Password", Icons.lock, obscureText: true),
+            const SizedBox(height: 30),
+            _buildButton("Register", _signUp),
+            const SizedBox(height: 20),
+            _buildTextButton("Vous avez un compte ? Connectez-vous", () {
               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
-            }, child: Text("vous avez une compte  ,  Login")),
+            }),
           ],
         ),
       ),
     );
   }
 
+  // Fonction pour simplifier la création des champs de texte
+  Widget _buildTextField(TextEditingController controller, String label, IconData icon, {bool obscureText = false, TextInputType keyboardType = TextInputType.text}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+      child: TextFormField(
+        controller: controller,
+        obscureText: obscureText,
+        keyboardType: keyboardType,
+        decoration: InputDecoration(
+          labelText: label,
+          labelStyle: TextStyle(color: Colors.blueGrey), // Changement de couleur en blueGrey
+          prefixIcon: Icon(icon, color: Colors.blueGrey), // Changement de couleur en blueGrey
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30),
+            borderSide: BorderSide(color: Colors.blueGrey, width: 2), // Changement de couleur en blueGrey
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30),
+            borderSide: BorderSide(color: Colors.blueGrey.withOpacity(0.5), width: 2), // Changement de couleur en blueGrey
+          ),
+        ),
+      ),
+    );
+  }
+
+  // Fonction pour simplifier la création du bouton
+  Widget _buildButton(String label, Function onPressed) {
+    return ElevatedButton(
+      onPressed: () => onPressed(),
+      style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.orange,
+                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 100),
+                shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
+      child: Text(label, style: TextStyle(color: Colors.white)), // Texte blanc pour contraster
+    );
+  }
+
+  // Fonction pour créer un TextButton personnalisé
+  Widget _buildTextButton(String label, Function onPressed) {
+    return TextButton(
+      onPressed: () => onPressed(),
+      child: Text(
+        label,
+        style: TextStyle(color: Colors.blueGrey, fontSize: 16), // Changement de couleur en blueGrey
+      ),
+    );
+  }
+
+  // Fonction de gestion de l'inscription
   void _signUp() async {
-    String username = username1.text.trim();
+    String username = usernameController.text.trim();
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
 
