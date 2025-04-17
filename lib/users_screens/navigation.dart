@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:test_firebase/recommanded.dart';
 import 'package:test_firebase/users_screens/panier.dart';
 import 'package:test_firebase/users_screens/home.dart';
-import 'package:test_firebase/users_screens/Profile.dart';
+import 'package:test_firebase/users_screens/Profile1.dart';
 
 class Navigation extends StatefulWidget {
   const Navigation({super.key});

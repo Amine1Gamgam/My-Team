@@ -1,11 +1,12 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:test_firebase/admin_screens/gestion.dart';
+import 'package:test_firebase/admin_screens/gestion_books.dart';
+import 'package:test_firebase/admin_screens/gestion_users.dart';
 import 'package:test_firebase/admin_screens/home2.dart';
 import 'package:test_firebase/recommanded.dart';
 import 'package:test_firebase/users_screens/panier.dart';
 import 'package:test_firebase/users_screens/home.dart';
-import 'package:test_firebase/users_screens/Profile.dart';
+import 'package:test_firebase/users_screens/Profile1.dart';
 
 class Navigation2 extends StatefulWidget {
   const Navigation2({super.key});
@@ -23,7 +24,7 @@ class _Navigation2State extends State<Navigation2> {
   void initState() {
     _pages = [
       Gestion(),
-      HomePage2(),
+      AddBookPage(),
       Profile(),
     ];
     super.initState();

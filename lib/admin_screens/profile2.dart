@@ -11,6 +11,7 @@ class Profile extends StatefulWidget {
 
   @override
   State<Profile> createState() => _ProfileState();
+
 }
 
 class _ProfileState extends State<Profile> {
@@ -149,24 +150,41 @@ class _ProfileState extends State<Profile> {
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (_user != null) ...[
-              CustomTextField(controller: _nameController, hintText: "Nom d'utilisateur"),
-              SizedBox(height: 10),
-              CustomTextField(controller: _emailController, hintText: "Email"),
-              SizedBox(height: 10),
-              CustomTextField(controller: _currentPasswordController, hintText: "Mot de passe actuel", isPassword: true),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _updateProfile,
-                child: Text("Mettre à jour"),
+              CircleAvatar(
+                radius: 50,
+                backgroundImage: AssetImage("assets/ena.jpg"),
               ),
-              ElevatedButton(
-                onPressed: _signOut,
-                child: Text("Déconnexion"),
+              SizedBox(height: 20),
+              Card(
+                margin: EdgeInsets.symmetric(vertical: 10),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                elevation: 5,
+                child: Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Column(
+                    children: [
+                      CustomTextField(controller: _nameController, hintText: "Nom d'utilisateur"),
+                      SizedBox(height: 10),
+                      CustomTextField(controller: _emailController, hintText: "Email"),
+                      SizedBox(height: 10),
+                      CustomTextField(controller: _currentPasswordController, hintText: "Mot de passe actuel", isPassword: true),
+                      SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: _updateProfile,
+                        child: Text("Mettre à jour"),
+                      ),
+                      ElevatedButton(
+                        onPressed: _signOut,
+                        child: Text("Déconnexion"),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ] else ...[
-              // Formulaire d'inscription si utilisateur non connecté
               CustomTextField(controller: username1, hintText: "Nom d'utilisateur"),
               SizedBox(height: 10),
               CustomTextField(controller: emailControllerReg, hintText: "Email"),
@@ -175,11 +193,9 @@ class _ProfileState extends State<Profile> {
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _signUp,
-                child: Text("Modifier"),
+                child: Text("S'inscrire"),
               ),
             ],
-            SizedBox(height: 20),
-          
           ],
         ),
       ),
@@ -215,8 +231,16 @@ class CustomTextField extends StatelessWidget {
       obscureText: isPassword,
       decoration: InputDecoration(
         labelText: hintText,
+        prefixIcon: Icon(Icons.person), // Ajoutez une icône si nécessaire
         border: OutlineInputBorder(),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.blue, width: 2.0), // Couleur du bord quand actif
+        ),
       ),
     );
   }
 }
+//flutter build apk --release
+//admin@gmail.com
+//test@gmail.com
+//123456
